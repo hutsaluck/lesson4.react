@@ -3,18 +3,13 @@ import './post-component.css'
 import {IPost} from "../../models/IPost";
 
 type PostState = {
-    post: IPost
+    post: IPost|null
 }
 
 class PostComponent extends Component<{ post: IPost }, PostState> {
 
     state: PostState = {
-        post: {
-            userId: 1,
-            id: 1,
-            title: '',
-            body: '',
-        }
+        post: null
     }
 
     componentDidMount() {
@@ -24,8 +19,8 @@ class PostComponent extends Component<{ post: IPost }, PostState> {
     render() {
         return (
             <div className="post-item">
-                <h3>{this.state?.post.title}</h3>
-                <p>{this.state?.post.body}</p>
+                <h3>{this.state?.post?.title}</h3>
+                <p>{this.state?.post?.body}</p>
             </div>
         );
     }
