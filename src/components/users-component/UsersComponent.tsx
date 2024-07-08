@@ -9,38 +9,18 @@ import './users-component.css'
 type UserState = {
     users: IUser[]
     posts: IPost[]
-    getPosts: (id:number) => void
+    getPosts: (id:number|undefined) => void
 }
 
-class UsersComponent extends Component<any> {
+class UsersComponent extends Component {
 
     state: UserState = {
-        users: [{
-            id: 1,
-            name: '',
-            username: '',
-            email: '',
-            address: {
-                street: '',
-                suite: '',
-                city: '',
-                zipcode: '',
-                geo: {
-                    lat: '',
-                    lng: '',
-                }
-            },
-            phone: '',
-            website: '',
-            company: {
-                name: '',
-                catchPhrase: '',
-                bs: '',
-            },
-        }],
+        users: [],
         posts: [],
-        getPosts: (id: number) => {
-            getPostsOfUserById(id).then(posts => this.setState({...this.state, posts: [...posts]}));
+        getPosts: (id: number|undefined): void => {
+            if (id != null) {
+                getPostsOfUserById(id).then((posts: IPost[]) => this.setState({...this.state, posts: [...posts]}));
+            }
         }
     }
 
@@ -60,7 +40,7 @@ class UsersComponent extends Component<any> {
                             <UserComponent
                                 key={user.id}
                                 id={user.id}
-                                getPosts={this.state?.getPosts}
+                                getPosts={this.state.getPosts}
                             />))
                     }
                 </div>

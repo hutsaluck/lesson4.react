@@ -4,37 +4,15 @@ import './user-component.css'
 import {getUserById} from "../../services/api.service";
 
 type UserState = {
-    user: IUser
-    getPosts: (id:number) => void
+    user: IUser|null
+    getPosts: (id:number|undefined) => void
 }
 
-class UserComponent extends Component<{ id: number, getPosts?: any }, UserState> {
+class UserComponent extends Component<{ id: number, getPosts: (id:number|undefined) => void }, UserState> {
 
     state: UserState = {
-        user: {
-            id: 1,
-            name: '',
-            username: '',
-            email: '',
-            address: {
-                street: '',
-                suite: '',
-                city: '',
-                zipcode: '',
-                geo: {
-                    lat: '',
-                    lng: '',
-                }
-            },
-            phone: '',
-            website: '',
-            company: {
-                name: '',
-                catchPhrase: '',
-                bs: '',
-            },
-        },
-        getPosts: (id:number) => {}
+        user: null,
+        getPosts: (id:number|undefined) => {}
     }
 
     componentDidMount() {
