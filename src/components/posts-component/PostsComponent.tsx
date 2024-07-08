@@ -13,10 +13,6 @@ class PostsComponent extends Component<{ posts: IPost[] }, PostState> {
         posts: []
     }
 
-    componentDidMount() {
-        this.setState({...this.state, posts: [...this.props.posts]});
-    }
-
     render() {
         return (
             <div className="wrap-posts">
