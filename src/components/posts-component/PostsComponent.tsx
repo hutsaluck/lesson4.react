@@ -13,11 +13,17 @@ class PostsComponent extends Component<{ posts: IPost[] }, PostState> {
         posts: []
     }
 
+    componentDidUpdate(prevProps: PostState) {
+        if (this.props.posts !== prevProps.posts) {
+            this.setState({...this.state, posts: [...this.props.posts]});
+        }
+    }
+
     render() {
         return (
             <div className="wrap-posts">
                 {
-                    this.props?.posts.map((post:IPost) => <PostComponent key={post.id} post={post}/>)
+                    this.state?.posts.map((post: IPost) => <PostComponent key={post.id} post={post}/>)
                 }
             </div>
         );
