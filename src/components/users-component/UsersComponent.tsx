@@ -42,7 +42,7 @@ class UsersComponent extends Component<{}, UserState> {
                             />))
                     }
                 </div>
-                <h2>{this.state?.posts.length ? `Posts` : ``}</h2>
+                {this.state?.posts.length ? <h2>Posts</h2> : null}
                 <div>
                     <PostsComponent posts={this.state?.posts}/>
                 </div>
