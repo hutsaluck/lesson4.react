@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {IUser} from "../../models/IUser"
 import './user-component.css'
-import {getUserById} from "../../services/api.service";
+import {userService} from "../../services/api.service";
 
 type UserState = {
     user: IUser|null
@@ -16,9 +16,7 @@ class UserComponent extends Component<{ id: number, getPosts: (id:number|undefin
     }
 
     componentDidMount() {
-        getUserById(this.props.id).then((value: IUser) => {
-            this.setState({...this.state, user: value});
-        });
+        userService.getUserById(this.props.id).then((user: IUser) => this.setState({...this.state, user: user}))
         this.setState({...this.state, getPosts: this.props.getPosts});
     }
 

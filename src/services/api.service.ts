@@ -1,20 +1,25 @@
 import axios, {AxiosResponse} from 'axios';
 import {IUser} from "../models/IUser";
 import {IPost} from "../models/IPost";
+import {baseUrl, urls} from '../constants/urls'
 
 let axiosInstance = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com',
+    baseURL: baseUrl,
 });
 
-const getAllUsers = async (): Promise<IUser[]> => {
-    return await axiosInstance.get('/users').then((response: AxiosResponse<IUser[]>) => response.data);
+const userService = {
+    getAllUsers: async (): Promise<IUser[]> => {
+        const axiosResponse: AxiosResponse<IUser[]> = await axiosInstance.get<IUser[]>(urls.usersUrls.all)
+        return axiosResponse.data
+    },
+    getUserById: async (id: number): Promise<IUser> => {
+        const axiosResponse: AxiosResponse<IUser> = await axiosInstance.get<IUser>(urls.usersUrls.oneById(id))
+        return axiosResponse.data
+    },
+    getPostsOfUserById: async (id: number): Promise<IPost[]> => {
+        const axiosResponse: AxiosResponse<IPost[]> = await axiosInstance.get<IPost[]>(urls.usersUrls.withPosts(id))
+        return axiosResponse.data
+    },
 }
 
-const getUserById = async (id:number): Promise<IUser> => {
-    return await axiosInstance.get(`/users/${id}`).then((response: AxiosResponse<IUser>) => response.data);
-}
-const getPostsOfUserById = async (id: number): Promise<IPost[]> => {
-    return await axiosInstance.get('/users/' + id + '/posts').then((response: AxiosResponse<IPost[]>) => response.data)
-};
-
-export {getAllUsers, getPostsOfUserById, getUserById}
+export {userService}
